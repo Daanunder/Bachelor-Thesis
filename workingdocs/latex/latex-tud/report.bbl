@@ -1,8 +1,70 @@
-\begin{thebibliography}{0}
+\begin{thebibliography}{9}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Adduce et~al.(2012)Adduce, Sciortino, and Proietti]{Adduce2012}
+C~Adduce, G~Sciortino, and S~Proietti.
+\newblock Gravity currents produced by lock exchanges: experiments and
+  simulations with a two-layer shallow-water model with entrainment.
+\newblock \emph{Journal of Hydraulic Engineering}, 138\penalty0 (2):\penalty0
+  111--121, 2012.
+
+\bibitem[Battjes(2017)]{Battjes2017}
+Jurjen~A. Battjes.
+\newblock \emph{Unsteady Flow in Open Channels}.
+\newblock CAMBRIDGE UNIVERSITY PRESS, 2017.
+\newblock ISBN 1107150299.
+\newblock URL
+  \url{https://www.ebook.de/de/product/27503143/jurjen_a_battjes_unsteady_flow_in_open_channels.html}.
+
+\bibitem[Del(2020)]{DFlowTechMan}
+\emph{D-Flow Flexible Mesh, Technical Reference Manualtmet}.
+\newblock Deltares systems, version 1.1.0 - svn revision 66571 edition, April
+  2020.
+
+\bibitem[O'Brien et~al.(1950)O'Brien, Hyman, and Kaplan]{obrien_study_1950}
+George~G. O'Brien, Morton~A. Hyman, and Sidney Kaplan.
+\newblock A {Study} of the {Numerical} {Solution} of {Partial} {Differential}
+  {Equations}.
+\newblock \emph{Journal of Mathematics and Physics}, 29\penalty0
+  (1-4):\penalty0 223--251, 1950.
+\newblock ISSN 1467-9590.
+\newblock \doi{10.1002/sapm1950291223}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/sapm1950291223}.
+
+\bibitem[Prandtl(1925)]{Prandtl1925}
+L.~Prandtl.
+\newblock 7. bericht über untersuchungen zur ausgebildeten turbulenz.
+\newblock 5:\penalty0 136--139, 1925.
+\newblock ISSN 0044-2267.
+\newblock \doi{10.1002/zamm.19250050212}.
+
+\bibitem[Ruano et~al.(2019)Ruano, Báez~Vidal, Trias, and Rigola]{Ruano2019}
+J.~Ruano, Aleix Báez~Vidal, F.Xavier Trias, and Joaquim Rigola.
+\newblock A general method to compute numerical dispersion errors and its
+  application to stretched meshes.
+\newblock 09 2019.
+
+\bibitem[Shin et~al.(2004)Shin, Dalziel, and Linden]{Shin2004}
+JO~Shin, SB~Dalziel, and PF~Linden.
+\newblock Gravity currents produced by lock exchange.
+\newblock \emph{Journal of Fluid Mechanics}, 521:\penalty0 1--34, 2004.
+
+\bibitem[Vuik et~al.(2007)Vuik, Vermolen, Gijzen, and Vuik]{Vuik2007}
+Cornelis Vuik, Fredericus~Johannes Vermolen, Martin~Bastiaan Gijzen, and
+  MJ~Vuik.
+\newblock \emph{Numerical Methods for Ordinary differential equations}.
+\newblock VSSD, 2007.
+
+\bibitem[Zijlema(2015)]{zijlema_computational_2015}
+M.~Zijlema.
+\newblock Computational {Modelling} of {Flow} and {Transport}.
+\newblock \emph{Collegedictaat CIE4340}, 2015.
+\newblock URL
+  \url{https://repository.tudelft.nl/islandora/object/uuid%3A5e7dac47-0159-4af3-b1d8-32d37d2a8406}.
 
 \end{thebibliography}

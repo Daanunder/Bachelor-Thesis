@@ -1,0 +1,6 @@
+
+[boundary]
+quantity=dischargebnd
+locationfile=Boundary01.pli
+forcingfile=Discharge.bc
+return_time=0.0000000e+000

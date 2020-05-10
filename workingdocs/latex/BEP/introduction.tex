@@ -11,44 +11,46 @@ and dispersion caused by characteristics of the numerical discretization
 scheme that is used.
 
 Numerical diffusion is sometimes referred to as ``numerical viscosity''
-since the produced error behaves as an increase in viscosity. Since
-viscosity decreases the amplitude of the diffusivity rate, numerical
-diffusion will increase this (amplitude) damping even further.
-Additionally, numerical dispersion is an effect of the discretization of
-higher order (non-linear) terms related to the hydrological dispersion
-relation, which include discretization schemes to deal with advection
-processes. Errors of this kind are often expressed through physically
-unrealistic oscillations in the approximation. Because avoiding such
-errors requires contrasting measures a quantification of their responses
-to certain modelling parameters is desirable. \citep[
-\citet{obrien_study_1950}]{zijlema_computational_2015}
+since the associated approximation errors mimic the effect of an
+increase in viscosity, i.e.~the solution is overdamped. Since viscous
+properties of a fluid decrease the amplitude of the diffusivity rate in
+advection-diffusion flow problems. Additionally, numerical dispersion is
+related to unrealistic oscillations in an approximation of an
+advection-diffusion problem that may occur if stability of the solution
+is not ensured. Because avoiding such errors requires contrasting
+measures a quantification of their responses to certain modelling
+parameters is desirable.
+\autocites{zijlema_computational_2015}{obrien_study_1950}
 
 In order to quantify the numerical diffusion and dispersion terms in the
 D-Flow FM model, and thus get an idea of the model's sensitivity to
-certain parameters, a lock-exchange experiment will be set up which will
-be used as the basis for a sensitivity analysis. After an initial
-qualitative analysis of the terms and settings found during this
-explorative setup of the basic D-Flow FM model, the creation of such
-basic model will be automated. From hereon the data required for the
-sensitivity analysis will be generated.
+certain parameters, a lock-exchange experiment will be set up which
+serve as the basis for a sensitivity analysis. After an initial
+qualitative analysis of the terms and settings found during an
+explorative setup of the basic D-Flow FM model, a stable basis for the
+parameter variations will be defined. In this basic model the desired
+boundary conditions, the lenght and timescale of the simulation and the
+constant parameters and modelling characteristics will be determined.
+Herafter the creation of such basic model will be automated so that the
+data required for the sensitivity analysis may be generated.
 
 The required data consist of the numerical errors produced while
 changing the grid resolution, the timestep size and parameters related
-to the numerical discretization scheme. The sensitivity S of a parameter
-P is defined as the relative change of a state variable per change of
-this parameter: S = (δx/x)/(δP/P). Three state parameters are defined as
-the difference between the approximation and the analytical solution at
+to the flow model. Subsequently the sensitivity S of a parameter P is
+defined as the relative change of a state variable per change of this
+parameter: S = (δx/x)/(δP/P). The state parameters are defined as the
+difference between the approximation and the analytical solution at
 predefined monitoring points, also known as the accuracy of the
-approximation; the flow velocity error, the density error and wave speed
-error.
+approximation. Prematurely three state parameters are defined; the flow
+velocity error, the density error and wave speed error.
 
 During the explorative model setup and the data generation phase, the
 observed data is analyzed and compared to certain indicator parameters
-that have previously been found characterize the significance of certain
-modelling parameters \citep{Shin2004} of a characterize certain
-discretization schemes and corresponding truncation errors in order to
-explain the observed errors. Examples of such parameters are the
-dimensionless Reynolds and Froude numbers or the ratio between the net
-diffusivity coefficient and viscosity. Additionally the leverage of
-parameters, forcing functions and submodules of the model are assessed
-based on the observed sensitivity.
+in order to explain the observed phenomena. These indicators have
+previously been found to characterize the significance of certain
+modelling parameters \autocite{Shin2004} of a discretization scheme and
+the associated error or are composites of important model parameter.
+Finally the leverage of parameters, forcing functions and submodules of
+the model are assessed based on the observed sensitivity for which a
+possible explanation in terms of the indicators and model
+characteristics will be sought.

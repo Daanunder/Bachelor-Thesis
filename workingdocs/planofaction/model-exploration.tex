@@ -1,0 +1,70 @@
+\chapter{Model Exploration}\label{model-exploration}
+
+In order to provide a solid basis for the sensitivity analysis the basic
+model has to be applicable to the research objective and sufficiently
+robust to enable all parameters to be explored. To ensure a working
+model first most default settings will be used to set up the
+lock-exchange model, this will already require a minimal definition file
+where general settings, physics, geometry, flow and numerical parameters
+are set.
+
+Thereafter possibly more realistic physical properties, boundary
+conditions, a more relevant geometry and specifics of the flow model
+such as bed friction and the will be defined. This should be done with
+the research objective in mind thus possibly requires setting up three
+different models for three different mesh grids in order to enable
+stable testing, at the cost of consistency between models. These
+trade-offs with respect to the research applicability and
+generalizability will have to be made.
+
+Further on the post-processing of the generated model will be performed,
+in this way the results of the basic model can be qualitatively assessed
+with respect to basic indicators (see \citet{indicator-parameters}).
+Finally, monitoring points have to be set up at logically sound
+locations and the basic models and subsequent post-processing have to be
+automated as much as possible.
+
+In short the following parts of the model should be explored: - General
+settings
+
+\begin{verbatim}
+- Physics
+
+- Geometry
+
+- Flow
+
+- Numerics
+
+- Post-processing
+
+- Automation
+\end{verbatim}
+
+\section{Boundary conditions}\label{boundary-conditions}
+
+Choosing the correct boundary condition for the lock-exchange model may
+be of significant importance considering the different boundary
+conditions that can be chosen within D-Flow. These boundary conditions
+can be divided into three groups and can all be related to the
+lock-exchange quite well: - Boundary conditions that complement the
+governing equations; continuity and momentum conservation. -
+Supplementary boundary conditions that impose additional constraints at
+a boundary. E.g. the weir at t=0 and the sidewalls and possibly the free
+surface \citep{Adduce2012}. - Boundary conditions for constituents, such
+as salinity.
+
+\section{Hydrostatic characteristics}\label{hydrostatic-characteristics}
+
+The model is hydrostatic thus vertical accelerations are not taken into
+account. The pressure is assumed to vary linearly at each cell along the
+vertical direction depending on the density state of the cell, related
+to the temperature and salinity. \citep[p.121]{DFlowTechMan}
+
+The horizontal stresses resulting from the vertical stress profile
+however are included in the model. This should be further looked into.
+
+\section{Bed level type}\label{bed-level-type}
+
+Certain different bed level types may be specified that are either
+piecewise constant (1,2) or piecewise linear (3-6).

@@ -1,0 +1,98 @@
+\çhapter{Data Analysis}\label{data-analysis}
+
+\section{Indicator parameters}\label{indicator-parameters}
+
+From phase 2 onwards the indicator parameters will be compared to the
+obtained result in order to get insight into the model and how it
+behaves. The following parameters will be used as indicators: 
+
+\begin{verbatim}
+* Reynolds number
+
+* Froude number
+
+* Diffusivity and viscosity (η = ρ∙D = ρ∙μ)
+\end{verbatim}
+
+\subsection{Numerical conditions}\label{numerical-conditions}
+
+In order to analyze the numerical results and qualitatively be able to
+explain why certain behaviour is observed the numerical schemes will be
+analyzed according to common conditions and parameters used to asses the
+consistency, stability and convergence of numerical methods and schemes.
+
+\subsubsection{Consistency, stability and convergence of finite
+differences}\label{consistency-stability-and-convergence-of-finite-differences}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  If the local truncation error goes to zero in the limit of Δx a finite
+  difference scheme is called consistent.
+\item
+  If there exists a constant C independant of Δx such that the norm of
+  matrix A stays smaller than C if Δx goes to zero, a finite differences
+  scheme is called stable.
+\item
+  If the global truncation error goes to zero as Δx goes to zero a
+  scheme is called convergent. This happens if the scheme is both
+  consistent and stable.
+\end{enumerate}
+
+\citep{Vuik2007}
+
+\subsubsection{Condition number}\label{condition-number}
+
+The condition number Κ of a matrix A is defined as the ratio between the
+relative error in the approximation (Δw/w) given a relative error in the
+right hand side of the matrix equation (Δf/f). For symmetric matrices
+this number is equal to the magnitude of the maximum eigenvalue divided
+by the magnitude of the minimum eigenvalue: Κ =
+\textbar{}λmax\textbar{}/\textbar{}λmin\textbar{}. This range of
+eigenvalues can be estimated using Gershgorin circle theorem
+\citep[p.107]{Vuik2007}.
+
+Using a more realistic estimation of the relative error in the
+approximation one can obtain the effective condition number defined as:
+Κ-eff = 1/λmin ∙ \textbar{}f\textbar{}/\textbar{}w\textbar{}.
+
+\subsubsection{Other conditions}\label{other-conditions}
+
+The conditions below will be discussed further if they turn out to be
+relevant.
+
+\begin{verbatim}
+* Von Neumann condition (Amplification factor)
+* CFL condition (Positive numerical diffusion, domain of influence)
+* Computational stability (Domain of influence)
+* Heuristic stability 
+* Monotonicity
+\end{verbatim}
+
+\citep{zijlema_computational_2015}
+
+\paragraph{Spectral analysis}\label{spectral-analysis}
+
+If significant numerical dispersion is observed a spectral analysis may
+be performed as proposed by \citet{Ruano2019}.
+
+\paragraph{Interval analysis}\label{interval-analysis}
+
+To deal with uncertainties in model parameters an interval analysis may
+be done. Also to attain a range of values for certain parameters.
+
+\subsection{Variable leverage}\label{variable-leverage}
+
+Eventually after the data analysis the sensitivity of the numerical
+diffusion and dispersion produced by the model to a number of chosen
+parameters can be produced. A distinction will be made between model
+parameters, forcing and submodels in order to separate the grounds on
+which conclusions can be drawn.
+
+\begin{verbatim}
+* Parameters
+
+* Forcing 
+
+* Submodels
+\end{verbatim}
