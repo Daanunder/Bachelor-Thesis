@@ -90,6 +90,38 @@ Benjamin (1968) derived a range of solutions depending on the depth of the curre
 
 Smoothness of the (free or mixing) surface, or in the case of a dual density fluid the contact surface / mixing front, implies little loss of energy. 
 
+Important parameters used in this model:
+- dimensionless speed as froude number - Fh = U / √(g'H) with g'=g(ρ2-ρ1)/ρ2. 
+
+Benajmin's theory (1968) predicts Fh = 0.5. Keulegan (1958) finds that the current speed is independent of width/depth ratio. 
+
+Most results (Keulegan 1958, Barr 1967) show Fh increase with Reynolds number. 
+
+Von Karman (1940) gives an indication for an energy conserving current propagating in an ambient fluid of infinite depth. He predicts the frontal wave speed to be: Fh = U/√(g'h) = √2/γ. With h being the depth of the current. Which is confirmed by Benjamin.
+
+
+# The use of TVD Limiters for Forward-in-Time Upstream-Biased Advection Schemes in Ocean Modelling
+TVD based limiters are used for a three-dimensional version of a forward-in-time advection scheme.
+
+Second order accurate on smooth solutions but can deal with discontinuitites without spurious oscillations
+
+Higher order schemes are compared by Zalesak (1987), which distinguishes the conservative Godunov schemes and algebraic schemes with flux limiters (TVD). 
+
+Multiple sources (Carpenter et al. (1990), Xue and Thorpe (1991), Line et al. (1994), Line and Rood (1996)) have found godunov schemes (Monotone upstream centered (2nd O) and piecewise parabolic(3rd O) can be used to model large scale problems. 
+
+On the other hand flux-limited forward-in-time are shown to succesfully model large scale constituent transport problems. (Godunov scheme with Forward Euler and TVD limiter). (Thuburn (1993), Hundsdorfer and Spee (1995)).
+
+Hundsdorfer and Trompert (1994) showed good results for two dimensional modelling of a front using a forward-in-time upstream-biased advection scheme. 
+
+A number of flux limiters are compared, these are nonoscillatory versions of the constant grid flux form scheme. "The PDM limiter is found to give best overall results for one and two dimensional test cases." 
+
+The study has the goal to investigate and improve advection fields at locations of sharp gradients in three-dimensional large scale modelling using a leapfrog scheme with a constant grid and flux limiters.
+
+
+
+
+
+
 
 
 
