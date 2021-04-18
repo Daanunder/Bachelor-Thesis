@@ -1,0 +1,23 @@
+﻿Parameters;Unit;
+Geometry;;
+# Grids - M;-;100
+# Grids - N;-;3
+Delta x;m;100
+Delta y;m;100
+General;;
+# Layers;-;10
+Timeframe;;
+Period;s;18000
+Courant number;-;0.7
+max. time step;s;1200
+Initial time step;s;1
+Processes;;
+Salinity;ppt;TRUE
+Initial conditions;;
+Waterlevel;m;10
+Salinity delta;ppt;25-15
+Temperature;degC;10
+Boundary conditions;;
+Discharge;m3/s;TRUE
+Velocity;m/s;FALSE
+Type;-;Free-slip

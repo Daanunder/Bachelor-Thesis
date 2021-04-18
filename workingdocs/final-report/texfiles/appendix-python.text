@@ -1,0 +1,266 @@
+import xarray as xr
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import seaborn as sns
+
+class simulations(object):
+    ## Simulation run 1205-3
+    sim1205_3 = dict(
+        netcdf_file = './data/initial-model-1.2-1205-3/initial-model-1.2_map.nc', 
+        run_id = '1205-3', 
+        sal_min = 15, 
+        sal_max = 25, 
+        depth = 10, 
+        layers=20
+    )
+
+    ## Simulation run 1305-1
+    ## First run :%s/mesh2d_nLayers/mesh2d_nLayerss/g
+    sim1305_1 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-1/InitialModel_map.nc',
+        run_id = '1305-1',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=10
+    )
+
+    ## Simulation run 1305-2
+    sim1305_2 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-2/InitialModel_map.nc',
+        run_id = '1305-2',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=10
+    )
+
+    ## Simulation run 1305-3
+    sim1305_3 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-3/InitialModel_map.nc',
+        run_id = '1305-3',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=10
+    )
+
+    ## Simulation run 1305-4
+    sim1305_4 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-4/InitialModel_map.nc',
+        run_id = '1305-4',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=10
+    )
+
+    ## Simulation run 1305-5
+    sim1305_5 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-5/InitialModel_map.nc',
+        run_id = '1305-5',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=10
+    )
+
+    ## Simulation run 1305-6
+    sim1305_6 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-6/InitialModel_map.nc',
+        run_id = '1305-6',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=20
+    )
+
+    ## Simulation run 1305-7
+    sim1305_7 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-7/InitialModel_map.nc',
+        run_id = '1305-7',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=50
+    )
+
+
+    ## Simulation run 1305-8
+    sim1305_8 = dict(
+        netcdf_file = './data/initial-model-1.4-1305-8/InitialModel_map.nc',
+        run_id = '1305-8',
+        sal_min = 15,
+        sal_max = 25,
+        depth = 10,
+        layers=100
+    )
+
+class dataset():
+    def __init__(self, netcdf_file, run_id, sal_min, sal_max, depth,layers):
+        self.dataset_location = netcdf_file 
+        self.dataset = xr.open_dataset(self.dataset_location)
+        self.df_waterdepth = self.dataset.mesh2d_waterdepth.to_dataframe()
+        self.df_salinity = self.dataset.mesh2d_sa1.to_dataframe()
+        self.run_id = run_id
+        self.sal_min = sal_min
+        self.sal_max = sal_max
+        self.depth = depth
+        self.df_courant = self.dataset.mesh2d_Numlimdt.to_dataframe()
+        self.layers=layers
+
+
+    def theoretical_frontal_wavespeed(self):
+        p1 = 1000+self.sal_min
+        p2 = 1000+self.sal_max
+        Y = min(p1/p2, p2/p1)
+        g = 9.81
+        gr = g*(1-Y)
+        return 0.5*np.sqrt(gr*self.depth)
+
+    def plot_waterdepth_time(self, n=1, save=False, fig_name='width_averaged_waterdepth'):
+        '''
+        Plots n number of equal time differenced plots of the waterdepth averaged over the width. The initial situation (t=0) the first timestep (t=Δt) and the last (t=tmax) times are always plotted. E.g. if n=4, the simulation was 4 hours and the timedelta 5min the plot will contain the following timesteps (t=0, t=5min, t=60min, t=120min, t=180min, t=240min). 
+        ''' 
+        time = self.df_waterdepth.index.unique(level='time')
+
+        # plot initial situation
+        t_delta = self.df_waterdepth.loc[time[0]].groupby('mesh2d_face_x').mean()
+        name = time[0].strftime('t=%Hh:%Mm')
+        t_delta.mesh2d_waterdepth.plot(label=name) 
+
+        for t_idx in range(0, len(time), int(len(time)/n)):
+            if t_idx == 0:
+                t_idx=1
+            name = time[t_idx].strftime('t=%Hh:%Mm')
+            t_delta = self.df_waterdepth.loc[time[t_idx]].groupby('mesh2d_face_x').mean()
+            t_delta.mesh2d_waterdepth.plot(label=name) 
+
+       
+        plt.title(f'Width averaged waterdepth - {self.run_id}')
+        plt.xlabel('Position in canal [m]')
+        plt.ylabel('Waterdepth [m]')
+        plt.legend()
+        plt.minorticks_on()
+        plt.grid(True, which='both')
+
+    def plot_salinity_time(self, n=1, save=False, fig_name='width_averaged_salinity', heatmap=True, contour=False, extremes=False):
+        # Get data
+        time = self.df_salinity.index.unique(level='time')
+        df = self.df_salinity.reset_index(level='mesh2d_nLayers')
+
+        # Initiate subplots
+        fig, axes = plt.subplots(n+2, 1, sharex=True, sharey=True)
+        plt.subplots_adjust(hspace=0.7)
+
+        # plot initial situation
+        avg_sal = df.loc[time[0]].groupby(['mesh2d_face_x', 'mesh2d_nLayers']).mean()['mesh2d_sa1']
+        avg_sal = avg_sal.reset_index() 
+        piv = avg_sal.pivot_table(values='mesh2d_sa1', index='mesh2d_nLayers', columns='mesh2d_face_x')  # create matrix
+
+        if heatmap:
+            hm = sns.heatmap(piv, ax=axes[0], cmap='plasma', cbar_kws={'label':'Salinity [ppt]'}, cbar_ax=fig.add_axes([.92, .2, .03, .3]))
+            hm.invert_yaxis()
+            plottype = 'Heatmap'
+
+        if contour: 
+            x,y=np.meshgrid(piv.columns,piv.index)
+            axes[0].grid()
+            cf = axes[0].contour(x,y, piv.values, 6, vmin=15, vmax=25)
+            cp = axes[0].contour(x,y, piv.values, 6, vmin=15, vmax=25)
+            #axes[0].clabel(cp, cp.levels, colors='black', fontsize=6)
+            fig.colorbar(cf, cax=fig.add_axes([.92,.2,.03,.3]))
+            plottype = 'Contourlines'
+
+        if extremes:
+            rdots=None
+            bdots=None
+            df_lows = avg_sal[avg_sal.mesh2d_sa1 < 15].reset_index()
+            if not df_lows.empty:
+                bdots = axes[0].plot(df_lows.mesh2d_face_x, df_lows.mesh2d_nLayers, 'b*')
+            df_highs = avg_sal[avg_sal.mesh2d_sa1 > 25].reset_index()
+            if not df_highs.empty:
+                rdots = axes[0].plot(df_highs.mesh2d_face_x, df_highs.mesh2d_nLayers, 'r*')
+
+            plottype = 'Unrealistic extremes'
+
+        name = time[0].strftime('t=%Hh:%Mm')
+        axes[0].set_title(name)
+        axes[0].get_yaxis().get_label().set_visible(False)
+        axes[0].get_xaxis().get_label().set_visible(False)
+        axes[0].set_yticks([0,self.layers-1])
+        axes[0].set_yticklabels([str(self.depth), '0'])
+        axes[0].minorticks_on()
+        axes[0].grid(True, which='both')
+
+        i = 0
+        for t_idx in range(0, len(time), int(len(time)/n)):
+            i+=1
+            if t_idx == 0:
+                t_idx=1
+
+            avg_sal = df.loc[time[t_idx]].groupby(['mesh2d_face_x', 'mesh2d_nLayers']).mean()
+            avg_sal = avg_sal.reset_index() 
+            piv = avg_sal.pivot_table(values='mesh2d_sa1', index='mesh2d_nLayers', columns='mesh2d_face_x')  # create 2d meshgrid with values
+            
+            if heatmap:
+                hm = sns.heatmap(piv, cmap='plasma', ax=axes[i], cbar=False)
+                hm.invert_yaxis()
+
+            if contour:
+                x,y=np.meshgrid(piv.columns,piv.index)
+                cp = axes[i].contour(x,y, piv.values, levels=6, vmin=15, vmax=25)
+                #axes[i].clabel(cp, cp.levels, colors='black', fontsize=6)
+
+            if extremes:
+                df_lows = avg_sal[avg_sal.mesh2d_sa1 < 15].reset_index()
+                if not df_lows.empty:
+                    bdots = axes[i].plot(df_lows.mesh2d_face_x, df_lows.mesh2d_nLayers, 'b*')
+                    
+                df_highs = avg_sal[avg_sal.mesh2d_sa1 > 25].reset_index()
+                if not df_highs.empty:
+                    rdots = axes[i].plot(df_highs.mesh2d_face_x, df_highs.mesh2d_nLayers, 'r*')
+
+            name = time[t_idx].strftime('t=%Hh:%Mm')
+            axes[i].set_title(name)
+            axes[i].set_yticks([0,self.layers-1])
+            axes[i].set_yticklabels([str(self.depth), '0'])
+            axes[i].minorticks_on()
+            axes[i].grid(True, which='both')
+            
+            if i != n+1:
+                axes[i].get_xaxis().get_label().set_visible(False)
+            if i != round(len(axes)/2):
+                axes[i].get_yaxis().get_label().set_visible(False)
+
+        
+        # Plot legend if applicable
+        if extremes:
+            handles=[]
+            labels=[]
+            if rdots:
+                handles.append(rdots[0])
+                labels.append(f'Values > {self.sal_max}ppt')
+            if bdots: 
+                handles.append(bdots[0])
+                labels.append(f'Values < {self.sal_min}ppt')
+            
+            axes[0].legend(handles=handles, labels=labels, loc='best')
+
+        plt.suptitle(f'Width averaged salinity - {self.run_id} - {plottype}')
+        axes[-1].set_xlabel('Position in canal [m]')
+        axes[round(len(axes)/2)].set_ylabel('Depth [m]')
+        plt.tight_layout(rect=[.1,.1,.8,.8])
+
+
+
+'''
+TODO:
+    - add velocity plot
+    - add courant limiting plot
+    - add plots for middle of the model
+    - look at 3D profiles
+    - look at extremes through table (error order)
+'''

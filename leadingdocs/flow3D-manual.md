@@ -6,6 +6,7 @@
 * RGFGRID 6.02.00.64375 - When creating a rectengular grid with m=100, n=100 and (x,y)=(0,0) as origin one node is not created. When the grid is deleted an created again the error seems to have dissapeared.
 * p. 68 - It seems it can not be deleted using backspace but using delete button
 * Project tab - properties button does not seem to work
+* Cant import initial conditions through Project tab when saved by different project
 
 
 # Command line testcase

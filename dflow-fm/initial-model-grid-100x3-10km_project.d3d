@@ -1,7 +1,0 @@
-[FileInformation]
-  FileGeneratedBy  = Deltares, RGFGRID Version 6.02.00.64375 (Win64), Nov 12 2019, 10:51:13
-  FileCreationDate = 2020-05-08, 22:38:59
-  FileVersion      = 0.02
-[Grid]
-  Type        = DFLOW_FM
-  FileName    = initial-model-grid-100x3-10km
